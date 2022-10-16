@@ -1,44 +1,49 @@
-import { Controller, Get, Post, Param, Req, Redirect } from '@nestjs/common';
-import { Request } from 'express';
+import {
+  Controller,
+  Get,
+  Query,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 
+import { CreateCatDto } from './dto/create-cat.dto';
+import { UpdateCatDto } from './dto/update-cat.dto';
+import { ListAllEntities } from './dto/list-all-entities.dto';
+
+// Postman で実行確認
 @Controller('cats')
 export class CatsController {
-  // GET /cats で findAll が動作
-  @Get()
-  findAll(): string {
-    return 'All cats';
-  }
-
-  // GET /cats/:id で cat が動作
-  // 別記述法：cat(@Param('id') id): string {
-  // @Get(':id')
-  // cat(@Param('id') id): string {
-  //   return `cat ${id}`;
-  // }
-
-  // @Req() /cats/req/:id で getReq が動作
-  @Get('req/:id')
-  getReq(@Req() request: Request): string {
-    console.log(request);
-    return `success request id ${request.params.id}`;
-  }
-
-  // GET /cats/mine で myCat が動作
-  @Get('mine')
-  myCat(): string {
-    return 'path /mine My cat';
-  }
-
-  @Get('redirect')
-  // リダイレクト先
-  @Redirect('mine')
-  redirect() {
-    console.log('redirect');
-  }
-
-  // POST /cats で create が動作
   @Post()
-  create(): string {
-    return 'New cat';
+  create(@Body() createCatDto: CreateCatDto) {
+    console.log(createCatDto);
+    const name: string = createCatDto.name;
+    const age: number = createCatDto.age;
+    const breed: string = createCatDto.breed;
+    return `This action adds a new cat name：${name} age：${age} breed：${breed}`;
+  }
+
+  // @Query：クエリストリングから取得
+  @Get()
+  findAll(@Query() query: ListAllEntities) {
+    console.log(query);
+    return `This action returns all cats (limit: ${query.limit} items)`;
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return `This action returns a #${id} cat`;
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateCatDto: UpdateCatDto) {
+    return `This action updates a #${id} cat`;
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return `This action removes a #${id} cat`;
   }
 }
