@@ -10,7 +10,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className="title">
+        <h1 className="text-3xl bg-red-100">
           Read{' '}
           <Link href="/posts/first-post">
             <a>this page!</a>
