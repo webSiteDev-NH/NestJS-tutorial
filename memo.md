@@ -13,3 +13,13 @@
   処理
 }
 ```
+
+# TailwindCSS
+
+```
+cd frontend
+```
+
+- [インストール](https://tailwindcss.com/docs/guides/nextjs)
+
+- [グローバル CSS](https://maku.blog/p/s9iry9g/)
