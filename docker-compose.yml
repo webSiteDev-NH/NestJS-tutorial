@@ -12,6 +12,8 @@ services:
         target: /api
     ports:
       - "3000:3000"
+    networks:
+      - nest-net
 
   app:
     container_name: app
@@ -25,3 +27,8 @@ services:
         target: /app
     ports:
       - "3333:3333"
+    networks:
+      - nest-net
+
+networks:
+  nest-net:
